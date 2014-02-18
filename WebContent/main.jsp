@@ -106,9 +106,9 @@
 	<section id="wrapper"> <hgroup>
 	<h2>Picture Review</h2>
 	<h3>Picture Review</h3>
-	</hgroup> <%
- 	List<PictureBean> pictures = (List<PictureBean>) session
- 			.getAttribute("pictures");
+	</hgroup> 
+<%
+ 	List<PictureBean> pictures = (List<PictureBean>) session.getAttribute("pictures");
 	String group = request.getParameter("group");
  	String interest = "";
  	String currentPage = request.getParameter("currentPage");
@@ -155,17 +155,16 @@
 		%>
 		<div class="grid">
 			<div class="imgholder">
-				<a href="<%=pictures.get(i).getLocal_add() %>>"><img src="<%=pictures.get(i).getUrl()%>" /></a>
+				<a href="<%=pictures.get(i).getLocal_add() %>"><img src="<%=pictures.get(i).getUrl()%>" /></a>
 			</div>
 			<strong><%=pictures.get(i).getTitle()%></strong>
 			<!-- title  -->
 			<p><%=pictures.get(i).getAlt()%></p>
 			<!-- description  -->
 			<div>
-				<a id="<%=pictures.get(i).getId()%>"
-					onclick="like('<%=pictures.get(i).getId()%>')"><%=interest%></a>
+				<a id="<%=pictures.get(i).getId()%>" onclick="like('<%=pictures.get(i).getId()%>')"><%=interest%></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="<%=pictures.get(i).getSource() %>">source</a>
 			</div>
-			<!--  <div class="meta">by j osborn</div>-->
 		</div>
 		<%
 			}

@@ -176,7 +176,7 @@ public class PicDao {
 		Connection con = dbHelper.connectDatabase();
 		Statement s = null;
 		ResultSet rs = null;
-		String sql="select count(*) as num from Published_ImRep where `group`="+group;
+		String sql="select count(*) as num from "+dbHelper.getTable()+" where `group`="+group;
 		try {
 			s = con.createStatement();
 			rs = s.executeQuery(sql);
