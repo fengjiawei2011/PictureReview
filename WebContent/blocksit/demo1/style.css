@@ -1,11 +1,10 @@
 body{
 	margin:0;
 	padding:0;
-	background:url(../images/bg.gif) 0 0 repeat #f7f5f5;
+	background:url(../bg.gif) 0 0 repeat #f7f5f5;
 	color:#333;
 	font-family:Cambria, Georgia, serif;
 	font-size:15px;
-	overflow-x:hidden;
 }
 header, section, footer, hgroup{
 	display:block;
@@ -84,8 +83,8 @@ a:hover, a:active{
 }
 #wrapper h2{
 	margin:5px 0;
-	color:#FF6D99;
-	text-shadow:1px 1px 2px #A50031;
+	color:#16C4FF;
+	text-shadow:1px 1px 2px #0080AA;
 	font-size:33px;
 	font-family:Arial Narrow, Arial, sans-serif;
 }
@@ -105,48 +104,23 @@ a:hover, a:active{
 	padding-bottom: 10px;
 	
 }
-.grid{
+.block{
 	width:188px;
 	min-height:100px;
 	padding: 15px;
 	background:#fff;
-	margin:8px;
+	margin:5px;
 	font-size:12px;
 	float:left;
+	overflow:hidden;
+	text-align:justify;
+	line-height:1.5;
+	color:#888;
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 	-moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
-	
-	-webkit-transition: top 1s ease, left 1s ease;
-	-moz-transition: top 1s ease, left 1s ease;
-	-o-transition: top 1s ease, left 1s ease;
-	-ms-transition: top 1s ease, left 1s ease;
 }
 
-.grid strong {
-	border-bottom:1px solid #ccc;
-	margin:10px 0;
-	display:block;
-	padding:0 0 5px;
-	font-size:14px;
-	font-family: fantasy;
-}
-.grid .meta{
-	text-align:right;
-	color:#777;
-	font-style:italic;
-}
-.grid .imgholder img{
-	max-width:100%;
-	background:#ccc;
-	display:block;
-}
-
-@media screen and (max-width : 1240px) {
-	body{
-		overflow:auto;
-	}
-}
 @media screen and (max-width : 900px) {
 	#backlinks{
 		float:none;

@@ -22,7 +22,7 @@ import dao.PicDao;
 @WebServlet("/show")
 public class GetImagesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	final int NUMBER_OF_PER_PAGE = 10;
+	final int NUMBER_OF_PER_PAGE = 20;
 	int records_number, pages_number, current_page;
 	int group_current;
 	PaginationProcess pp = new PaginationProcess();

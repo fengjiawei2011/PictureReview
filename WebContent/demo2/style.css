@@ -1,7 +1,7 @@
 body{
 	margin:0;
 	padding:0;
-	background:url(../images/bg.gif) 0 0 repeat #f7f5f5;
+	background:url(../bg.gif) 0 0 repeat #f7f5f5;
 	color:#333;
 	font-family:Cambria, Georgia, serif;
 	font-size:15px;
@@ -128,8 +128,7 @@ a:hover, a:active{
 	margin:10px 0;
 	display:block;
 	padding:0 0 5px;
-	font-size:14px;
-	font-family: fantasy;
+	font-size:17px;
 }
 .grid .meta{
 	text-align:right;
