@@ -152,20 +152,19 @@
 	href="http://www.inwebson.com/demo/blocksit-js/demo2/" />
 </head>
 <%
- 	List<PictureBean> pictures = (List<PictureBean>) session
- 			.getAttribute("pictures");
- 	String group = request.getParameter("group");
- 	String interest = "";
- 	String currentPage = request.getParameter("currentPage");
- 	String pages = request.getParameter("pages");
- 	//System.out.println("currentpage --->" + currentPage);
- 	//System.out.println("pictures size--->" + pictures.size());
- %>
+	List<PictureBean> pictures = (List<PictureBean>) session
+			.getAttribute("pictures");
+	String group = request.getParameter("group");
+	String interest = "";
+	String currentPage = request.getParameter("currentPage");
+	String pages = request.getParameter("pages");
+	//System.out.println("currentpage --->" + currentPage);
+	//System.out.println("pictures size--->" + pictures.size());
+%>
 
 <body>
-<!-- Header -->
-<header id="header">
-	<!--  <h1>Picture Review</h1>-->
+	<!-- Header -->
+	<header id="header"> <!--  <h1>Picture Review</h1>-->
 	<div>
 		<ul class="pager">
 			<li><a href="#" onclick="save()">save</a></li>
@@ -193,16 +192,14 @@
 		</ul>
 	</div>
 	<div class="clearfix"></div>
-</header>
+	</header>
 	<!-- Content -->
-	<section id="wrapper"> 
-	
-	<!--  <hgroup>
+	<section id="wrapper"> <!--  <hgroup>
 	<h2>Picture Review</h2>
 	<h3>Picture Review</h3>
 	</hgroup> -->
-	
-	
+
+
 	<div id="container">
 
 
