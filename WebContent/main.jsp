@@ -3,6 +3,16 @@
 <%@ page import="java.util.*"%>
 <%@ page import="beans.*;"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	List<PictureBean> pictures = (List<PictureBean>) session
+			.getAttribute("pictures");
+	String group = request.getParameter("group");
+	String interest = "";
+	String currentPage = request.getParameter("currentPage");
+	String pages = request.getParameter("pages");
+	//System.out.println("currentpage --->" + currentPage);
+	//System.out.println("pictures size--->" + pictures.size());
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,6 +28,14 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+	 	/* var l = $('#islike').attr("class").substring(0,6) ;
+		if( l == "like"){
+			$('#islike').addClass("glyphicon glyphicon-ok");
+		}else{
+			$('#islike').addClass("glyphicon glyphicon-remove");
+		}  */
+		
 		//vendor script
 		$('#header').css({
 			'top' : -50
@@ -86,9 +104,13 @@
 			success : function(data) {
 				if (data.isLike) {
 					// alert("like successfully");
+					$('#lab_'+id).removeClass("glyphicon-ok");
+					$('#lab_'+id).addClass("glyphicon-remove");
 					$("#" + data.id).text("unlike");
 				} else {
 					// alert("unlike successfully");
+					$('#lab_'+id).removeClass("glyphicon-remove");
+					$('#lab_'+id).addClass("glyphicon-ok");
 					$("#" + data.id).text("like");
 				}
 
@@ -151,16 +173,7 @@
 <link rel="canonical"
 	href="http://www.inwebson.com/demo/blocksit-js/demo2/" />
 </head>
-<%
-	List<PictureBean> pictures = (List<PictureBean>) session
-			.getAttribute("pictures");
-	String group = request.getParameter("group");
-	String interest = "";
-	String currentPage = request.getParameter("currentPage");
-	String pages = request.getParameter("pages");
-	//System.out.println("currentpage --->" + currentPage);
-	//System.out.println("pictures size--->" + pictures.size());
-%>
+
 
 <body>
 	<!-- Header -->
@@ -201,8 +214,6 @@
 
 
 	<div id="container">
-
-
 		<%
 			if (pictures != null) {
 				for (int i = 0; i < pictures.size(); i++) {
@@ -222,9 +233,15 @@
 			<p><%=pictures.get(i).getAlt()%></p>
 			<!-- description  -->
 			<div>
-				<a id="<%=pictures.get(i).getId()%>"
+			<%
+				if(interest.equals("like")){
+					%><label id="lab_<%=pictures.get(i).getId()%>" class="glyphicon glyphicon-ok"></label>
+			<%}else{%><label id="lab_<%=pictures.get(i).getId()%>" class="glyphicon glyphicon-remove"></label>
+			<%}%>
+				<a href="#" id="<%=pictures.get(i).getId()%>"
 					onclick="like('<%=pictures.get(i).getId()%>')"><%=interest%></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="<%=pictures.get(i).getSource()%>">source</a>
+				
 			</div>
 		</div>
 		<%
