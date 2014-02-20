@@ -12,7 +12,7 @@ public class DBConnectionHelper {
 	private String username = "root";
 	private String password = "111111";
 	private String URL = "jdbc:mysql://192.168.1.55:3306/Rideo";
-	private String table = "Published_ImRep_Test";
+	private String table = "Published_ImRep";
 	
 	private String URL_ContentDiary = "jdbc:mysql://192.168.1.55:3306/ContentDiary";
 	private String table_ContentDiary = "movie";
