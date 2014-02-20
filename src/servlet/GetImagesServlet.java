@@ -21,7 +21,7 @@ import beans.PictureBean;
 @WebServlet("/show")
 public class GetImagesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	final int NUMBER_OF_PER_PAGE = 20;
+	final int NUMBER_OF_PER_PAGE = 15;
 
 	int records_number, pages_number, current_page;
 	int groups, group_current;
@@ -123,8 +123,10 @@ public class GetImagesServlet extends HttpServlet {
 
 		hs.setAttribute("pictures", pictures);
 		hs.setAttribute("movies", movies);
-		request.getRequestDispatcher("main.jsp?currentPage=" + current_page + "&pages="
-				+ pages_number + "&group=Group " + group).forward(request,response);
+//		request.getRequestDispatcher("main.jsp?currentPage=" + current_page + "&pages="
+//				+ pages_number + "&group=Group " + group).forward(request,response);
+//		
+		response.sendRedirect("main.jsp?currentPage=" + current_page + "&pages=" + pages_number + "&group=Group " + group);
 	}
 
 	public void setPageNum() {

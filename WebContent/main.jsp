@@ -248,7 +248,7 @@
 		%>
 		<div class="grid">
 			<div class="imgholder">
-				<a href="<%=pictures.get(i).getLocal_add()%>"><img
+				<a href=".<%=pictures.get(i).getLocal_add()%>"><img
 					src="<%=pictures.get(i).getUrl()%>" /></a>
 			</div>
 			<strong><%=pictures.get(i).getTitle()%></strong>
