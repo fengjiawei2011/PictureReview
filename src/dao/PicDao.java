@@ -23,7 +23,7 @@ public class PicDao {
 		Connection con = dbHelper.connectDatabase();
 		String sql = "update " + dbHelper.getTable() + " set interesting = "
 				+ isLike + "where id='" + id + "'";
-
+		System.out.println(sql);
 		try {
 			Statement s = con.createStatement();
 			s.executeUpdate(sql);
@@ -44,6 +44,7 @@ public class PicDao {
 
 		String sql = "select * from " + dbHelper.getTable() + " where group="
 				+ group_id + "and movie_id = '" + movie_id + "'";
+		System.out.println(sql);
 		try {
 			s = con.createStatement();
 			rs = s.executeQuery(sql);
@@ -77,6 +78,7 @@ public class PicDao {
 
 		String sql = "select * from " + dbHelper.getTable() + " where `group`="
 				+ group + " and movie_id='"+movie_id+"' limit " + begin + "," + pages;
+		System.out.println(sql);
 		try {
 			s = con.createStatement();
 			rs = s.executeQuery(sql);
@@ -109,6 +111,7 @@ public class PicDao {
 		ResultSet rs = null;
 
 		String sql = "select * from " + dbHelper.getTable() + " where  movie_id='"+movie_id+"' limit " + begin + "," + pages;
+		System.out.println(sql);
 		try {
 			s = con.createStatement();
 			rs = s.executeQuery(sql);
@@ -141,6 +144,7 @@ public class PicDao {
 		ResultSet rs = null;
 
 		String sql = "select * from " + dbHelper.getTable() + " limit " + begin + "," + pages;
+		System.out.println(sql);
 		try {
 			s = con.createStatement();
 			rs = s.executeQuery(sql);
@@ -221,8 +225,9 @@ public class PicDao {
 				} else {
 					pb.setInteresting(0);
 				}
-
-				pb.setLocal_add(rs.getString("local_add"));
+				
+				String local_add = rs.getString("local_add").replace("rideo", "test_rideo");
+				pb.setLocal_add(local_add);
 				pb.setSource(rs.getString("source"));
 				pb.setTitle(rs.getString("title"));
 				pb.setUrl(rs.getString("url"));
@@ -245,7 +250,7 @@ public class PicDao {
 		return empty;
 	}
 
-	public int getRecords(String group) {
+	public int getRecords(String movie_id, String group) {
 		int num = 0;
 		// ProjectHelper helper = new ProjectHelper();
 		DBConnectionHelper dbHelper = new DBConnectionHelper();
@@ -253,7 +258,70 @@ public class PicDao {
 		Statement s = null;
 		ResultSet rs = null;
 		String sql = "select count(*) as num from " + dbHelper.getTable()
-				+ " where `group`=" + group;
+				+ " where `group`=" + group+" and movie_id='"+movie_id+"'";
+		System.out.println(sql);
+		try {
+			s = con.createStatement();
+			rs = s.executeQuery(sql);
+			while (rs.next()) {
+				num = rs.getInt("num");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (s != null) {
+				DBConnectionHelper.closeStatement(s);
+			}
+			if (con != null) {
+				DBConnectionHelper.closeConnection(con);
+			}
+
+		}
+		return num;
+	}
+	
+	public int getRecords() {
+		int num = 0;
+		// ProjectHelper helper = new ProjectHelper();
+		DBConnectionHelper dbHelper = new DBConnectionHelper();
+		Connection con = dbHelper.connectDatabase();
+		Statement s = null;
+		ResultSet rs = null;
+		String sql = "select count(*) as num from " + dbHelper.getTable();
+		System.out.println(sql);
+		try {
+			s = con.createStatement();
+			rs = s.executeQuery(sql);
+			while (rs.next()) {
+				num = rs.getInt("num");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (s != null) {
+				DBConnectionHelper.closeStatement(s);
+			}
+			if (con != null) {
+				DBConnectionHelper.closeConnection(con);
+			}
+
+		}
+		return num;
+	}
+	
+	public int getRecords(String movie_id) {
+		int num = 0;
+		// ProjectHelper helper = new ProjectHelper();
+		DBConnectionHelper dbHelper = new DBConnectionHelper();
+		Connection con = dbHelper.connectDatabase();
+		Statement s = null;
+		ResultSet rs = null;
+		String sql = "select count(*) as num from where = '"+movie_id+"' " + dbHelper.getTable();
+		System.out.println(sql);
 		try {
 			s = con.createStatement();
 			rs = s.executeQuery(sql);
