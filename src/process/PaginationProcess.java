@@ -7,11 +7,23 @@ import dao.PicDao;
 
 public class PaginationProcess {
 	PicDao p_dao = new PicDao();
-	public List<PictureBean> getPicturesByPage(int whichPage, int pages, String group){
+	public List<PictureBean> getPicturesByPage(int whichPage, int pages, String group, String movie_id){
 		
 		int begin = pages * (whichPage - 1);
-		return p_dao.getPageEntries(begin, pages, group);
+		return p_dao.getPageEntries(begin, pages, group,movie_id);
 	}
+	
+public List<PictureBean> getPicturesByPage(int whichPage, int pages,  String movie_id){
+		
+		int begin = pages * (whichPage - 1);
+		return p_dao.getPageEntries(begin, pages, movie_id);
+	}
+
+public List<PictureBean> getPicturesByPage(int whichPage, int pages){
+	
+	int begin = pages * (whichPage - 1);
+	return p_dao.getPageEntries(begin, pages);
+}
 	
 	public int getRecords(String group){
 		return  p_dao.getRecords(group);

@@ -14,12 +14,26 @@ public class DBConnectionHelper {
 	private String URL = "jdbc:mysql://192.168.1.55:3306/Rideo";
 	private String table = "Published_ImRep_Test";
 	
-
+	private String URL_ContentDiary = "jdbc:mysql://192.168.1.55:3306/ContentDiary";
+	private String table_ContentDiary = "movie";
+	
+	
 	public Connection connectDatabase() {
 		Connection connection = null;
 		try {
 			Class.forName(dbDriver).newInstance();
 			connection = DriverManager.getConnection(URL, username, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return connection;
+	}
+
+	public Connection connectDatabase_ContentDiary() {
+		Connection connection = null;
+		try {
+			Class.forName(dbDriver).newInstance();
+			connection = DriverManager.getConnection(URL_ContentDiary, username, password);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,6 +69,11 @@ public class DBConnectionHelper {
 			}
 		}
 
+	}
+
+	
+	public String getTable_ContentDiary() {
+		return table_ContentDiary;
 	}
 
 	public String getTable() {

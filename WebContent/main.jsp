@@ -4,12 +4,15 @@
 <%@ page import="beans.*;"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	List<PictureBean> pictures = (List<PictureBean>) session
-			.getAttribute("pictures");
+	List<PictureBean> pictures = (List<PictureBean>) session.getAttribute("pictures");
+	List<MovieBean> movies = (List<MovieBean>) session.getAttribute("movies");
+	//int groups = (int) session.getAttribute("groups");
+	
 	String group = request.getParameter("group");
 	String interest = "";
 	String currentPage = request.getParameter("currentPage");
 	String pages = request.getParameter("pages");
+	MovieBean current_movie = (MovieBean)session.getAttribute("current_movie");
 	//System.out.println("currentpage --->" + currentPage);
 	//System.out.println("pictures size--->" + pictures.size());
 %>
@@ -28,14 +31,14 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-	 	/* var l = $('#islike').attr("class").substring(0,6) ;
+
+		/* var l = $('#islike').attr("class").substring(0,6) ;
 		if( l == "like"){
-			$('#islike').addClass("glyphicon glyphicon-ok");
+		$('#islike').addClass("glyphicon glyphicon-ok");
 		}else{
-			$('#islike').addClass("glyphicon glyphicon-remove");
+		$('#islike').addClass("glyphicon glyphicon-remove");
 		}  */
-		
+
 		//vendor script
 		$('#header').css({
 			'top' : -50
@@ -104,13 +107,13 @@
 			success : function(data) {
 				if (data.isLike) {
 					// alert("like successfully");
-					$('#lab_'+id).removeClass("glyphicon-ok");
-					$('#lab_'+id).addClass("glyphicon-remove");
+					$('#lab_' + id).removeClass("glyphicon-ok");
+					$('#lab_' + id).addClass("glyphicon-remove");
 					$("#" + data.id).text("unlike");
 				} else {
 					// alert("unlike successfully");
-					$('#lab_'+id).removeClass("glyphicon-remove");
-					$('#lab_'+id).addClass("glyphicon-ok");
+					$('#lab_' + id).removeClass("glyphicon-remove");
+					$('#lab_' + id).addClass("glyphicon-ok");
 					$("#" + data.id).text("like");
 				}
 
@@ -190,6 +193,24 @@
 				onclick="return next()">Next</a></li>
 			<li id="saveNext"><a href="show?operation=saveNext"
 				onclick="return next()">Save&Next</a></li>
+			<li>
+				<div class="btn-group">
+					<button type="button" class="btn btn-info dropdown-toggle"
+						data-toggle="dropdown">
+						<% if(current_movie != null){ %> <%=current_movie.getMovie_name() %>
+						
+						<%}else{ %>Choose Movie <%} %><span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<%for (MovieBean movie : movies) {%>
+						<li><a href="show?movie_id=<%=movie.getMovie_id()%>&operation=chooseMovie"><%=movie.getMovie_name()%></a></li>
+						<%}%>
+					</ul>
+				</div>
+
+			</li>
+			<% String groups = (String)session.getAttribute("groups");
+			if(groups != null){%>
 			<li><div class="btn-group">
 					<button type="button" class="btn btn-info dropdown-toggle"
 						data-toggle="dropdown">
@@ -197,11 +218,13 @@
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="show?group=1">Group 1</a></li>
-						<li><a href="show?group=2">Group 2</a></li>
-						<li><a href="show?group=3">Group 3</a></li>
+						<%for(int i=1; i <= Integer.parseInt(groups); i++){ %>
+						<li><a href="show?group=<%=i%>&operation=chooseGroup">Group <%=i%></a></li>
+						<%} %>
 					</ul>
-				</div></li>
+				</div>
+		   </li>
+		   <%} %>
 		</ul>
 	</div>
 	<div class="clearfix"></div>
@@ -233,15 +256,16 @@
 			<p><%=pictures.get(i).getAlt()%></p>
 			<!-- description  -->
 			<div>
-			<%
-				if(interest.equals("like")){
-					%><label id="lab_<%=pictures.get(i).getId()%>" class="glyphicon glyphicon-ok"></label>
-			<%}else{%><label id="lab_<%=pictures.get(i).getId()%>" class="glyphicon glyphicon-remove"></label>
-			<%}%>
+				<%if (interest.equals("like")){%>
+				<label id="lab_<%=pictures.get(i).getId()%>"class="glyphicon glyphicon-ok"></label>
+				<%}else {%>
+					<label id="lab_<%=pictures.get(i).getId()%>"
+					class="glyphicon glyphicon-remove"></label>
+				<%}%>
 				<a href="#" id="<%=pictures.get(i).getId()%>"
 					onclick="like('<%=pictures.get(i).getId()%>')"><%=interest%></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="<%=pictures.get(i).getSource()%>">source</a>
-				
+
 			</div>
 		</div>
 		<%
