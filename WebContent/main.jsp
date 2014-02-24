@@ -4,14 +4,14 @@
 <%@ page import="beans.*;"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	List<PictureBean> pictures = (List<PictureBean>) session.getAttribute("pictures");
+	List<PictureBean> pictures = (List<PictureBean>) request.getAttribute("pictures");
 	List<MovieBean> movies = (List<MovieBean>) session.getAttribute("movies");
-	//int groups = (int) session.getAttribute("groups");
-	
-	String group = request.getParameter("group");
+
+	String groups = (String)session.getAttribute("groups");
+	String group = (String)session.getAttribute("current_group");
 	String interest = "";
-	String currentPage = request.getParameter("currentPage");
-	String pages = request.getParameter("pages");
+	int currentPage =  (Integer)session.getAttribute("current_page");
+	int pages = (Integer)session.getAttribute("pages_num");
 	MovieBean current_movie = (MovieBean)session.getAttribute("current_movie");
 	//System.out.println("currentpage --->" + currentPage);
 	//System.out.println("pictures size--->" + pictures.size());
@@ -32,12 +32,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		/* var l = $('#islike').attr("class").substring(0,6) ;
-		if( l == "like"){
-		$('#islike').addClass("glyphicon glyphicon-ok");
-		}else{
-		$('#islike').addClass("glyphicon glyphicon-remove");
-		}  */
+
 
 		//vendor script
 		$('#header').css({
@@ -201,24 +196,24 @@
 						
 						<%}else{ %>Choose Movie <%} %><span class="caret"></span>
 					</button>
-					<ul class="dropdown-menu" role="menu">
-						<%for (MovieBean movie : movies) {%>
-						<li><a href="show?movie_id=<%=movie.getMovie_id()%>&operation=chooseMovie"><%=movie.getMovie_name()%></a></li>
+					<ul  style="overflow-y: scroll;height: 500px" class="dropdown-menu" role="menu">
+						<%for (int i = 0; i< movies.size();i++) {%>
+						<li><a href="show?movie_id=<%=movies.get(i).getMovie_id()%>&operation=chooseMovie"><%=i+1%>.<%=movies.get(i).getMovie_name()%></a></li>
 						<%}%>
 					</ul>
 				</div>
 
 			</li>
-			<% String groups = (String)session.getAttribute("groups");
+			<% 
 			if(groups != null){%>
 			<li><div class="btn-group">
 					<button type="button" class="btn btn-info dropdown-toggle"
 						data-toggle="dropdown">
-						<%=group%>
+						Group <%=group %>
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<%for(int i=1; i <= Integer.parseInt(groups); i++){ %>
+						<%for(int i=0; i <= Integer.parseInt(groups); i++){ %>
 						<li><a href="show?group=<%=i%>&operation=chooseGroup">Group <%=i%></a></li>
 						<%} %>
 					</ul>
@@ -249,7 +244,7 @@
 		<div class="grid">
 			<div class="imgholder">
 				<a href=".<%=pictures.get(i).getLocal_add()%>"><img
-					src="<%=pictures.get(i).getUrl()%>" /></a>
+					src=".<%=pictures.get(i).getLocal_add()%>" /></a>
 			</div>
 			<strong><%=pictures.get(i).getTitle()%></strong>
 			<!-- title  -->
@@ -262,11 +257,12 @@
 					<label id="lab_<%=pictures.get(i).getId()%>"
 					class="glyphicon glyphicon-remove"></label>
 				<%}%>
-				<a href="#" id="<%=pictures.get(i).getId()%>"
+				<a style="cursor: pointer;" id="<%=pictures.get(i).getId()%>"
 					onclick="like('<%=pictures.get(i).getId()%>')"><%=interest%></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="<%=pictures.get(i).getSource()%>">source</a>
 
 			</div>
+			
 		</div>
 		<%
 			}
@@ -276,14 +272,6 @@
 		%>
 	</div>
 
-	<!--  
-	<div>
-		<a id="first" href="#">First</a>  	
-		<a id="prev" href="#">Prev</a> 
-		<label id="page" >1 of 100</label>
-		<a id="next" href="#">Next</a> 
-		<a id="last" href="#">Last</a>
-	</div>
 	--> </section>
 
 </body>

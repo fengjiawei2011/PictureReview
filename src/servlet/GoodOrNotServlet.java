@@ -21,17 +21,10 @@ import process.LikeProcess;
 @WebServlet("/like")
 public class GoodOrNotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static Map<String, Object> memory;
-	public static LikeProcess lp;
+
 
 	public GoodOrNotServlet() {
 		super();
-		memory = new LinkedHashMap<String, Object>();
-		lp = new LikeProcess();
-		// for(int i = 1; i <= 100; i++ ){
-		// memory.put( i+".JPG", 0);
-		// }
-
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -47,6 +40,10 @@ public class GoodOrNotServlet extends HttpServlet {
 
 	public void likeFunction(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		
+		System.out.println("memory");
+		Map<String, Object> memory = (Map<String, Object>)request.getSession().getAttribute("memory");
+		LikeProcess lp = new LikeProcess();
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		
@@ -55,7 +52,7 @@ public class GoodOrNotServlet extends HttpServlet {
 		if (save != null && save.equals("save")) {
 			lp.updateByMap(memory);
 			memory.clear();
-			System.out.println("save map successfully");
+			//System.out.println("save map successfully");
 			map.put("success", " save successfully!!!!!");
 			//response.sendRedirect("index.jsp");
 			
@@ -70,22 +67,10 @@ public class GoodOrNotServlet extends HttpServlet {
 				like = 0;
 			}
 			
-			
-			// lp.update(id, like);
 			Boolean isLike = false;
-			// System.out.println(isLike_p);
-			// if(isLike_p.equals("like")){
-			// isLike = true;
-			//
-			// }else{
-			// isLike = false;
-			// lp.update(id, 0);
-			// }
-			//
-			// System.out.println("success'");
-
-			// System.out.println("id="+ id);
+	
 			if (!memory.containsKey(id)) {
+				System.out.println("no such id in memory!!");
 				memory.put(id, like);
 				if (like == 1) {
 					isLike = true;
@@ -93,6 +78,7 @@ public class GoodOrNotServlet extends HttpServlet {
 					isLike = false;
 				}
 			} else {
+				System.out.println("has such id in memory!!");
 				if ((int) memory.get(id) == 1) {
 					isLike = false;
 					memory.remove(id);
@@ -111,13 +97,6 @@ public class GoodOrNotServlet extends HttpServlet {
 		
 		ProjectHelper.write(response, map);
 
-		
-		
-		// System.out.println("map----> "+map);
-		// System.out.println("memory-> "+memory);
-		
-
-		// response.sendRedirect("main.jsp");
 	}
 
 }

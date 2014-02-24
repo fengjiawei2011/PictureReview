@@ -226,7 +226,8 @@ public class PicDao {
 					pb.setInteresting(0);
 				}
 				
-				String local_add = rs.getString("local_add").replace("rideo", "test_rideo");
+				//String local_add = rs.getString("local_add").replace("rideo", "test_rideo");
+				String local_add = rs.getString("local_add");
 				pb.setLocal_add(local_add);
 				pb.setSource(rs.getString("source"));
 				pb.setTitle(rs.getString("title"));
@@ -320,7 +321,7 @@ public class PicDao {
 		Connection con = dbHelper.connectDatabase();
 		Statement s = null;
 		ResultSet rs = null;
-		String sql = "select count(*) as num from where = '"+movie_id+"' " + dbHelper.getTable();
+		String sql = "select count(*) as num from "+ dbHelper.getTable()+" where movie_id = '"+movie_id+"' ";
 		System.out.println(sql);
 		try {
 			s = con.createStatement();
@@ -351,6 +352,7 @@ public class PicDao {
 		Statement s = null;
 		String sql = "update " + dbHelper.getTable() + " set interesting = "
 				+ islike + " where id = '" + id + "'";
+		System.out.println(sql);
 		try {
 			s = con.createStatement();
 			s.executeUpdate(sql);

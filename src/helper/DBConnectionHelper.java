@@ -12,10 +12,12 @@ public class DBConnectionHelper {
 	private String username = "root";
 	private String password = "111111";
 	private String URL = "jdbc:mysql://192.168.1.55:3306/Rideo";
-	private String table = "Published_ImRep";
+//	private String password = "root";
+//	private String URL = "jdbc:mysql://localhost/Rideo";
+	private String table = "Published_ImRep_Wanying";
 	
-	private String URL_ContentDiary = "jdbc:mysql://192.168.1.55:3306/ContentDiary";
-	private String table_ContentDiary = "movie";
+//	private String URL_ContentDiary = "jdbc:mysql://192.168.1.55:3306/ContentDiary";
+//	private String table_ContentDiary = "movie";
 	
 	
 	public Connection connectDatabase() {
@@ -29,16 +31,16 @@ public class DBConnectionHelper {
 		return connection;
 	}
 
-	public Connection connectDatabase_ContentDiary() {
-		Connection connection = null;
-		try {
-			Class.forName(dbDriver).newInstance();
-			connection = DriverManager.getConnection(URL_ContentDiary, username, password);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
+//	public Connection connectDatabase_ContentDiary() {
+//		Connection connection = null;
+//		try {
+//			Class.forName(dbDriver).newInstance();
+//			connection = DriverManager.getConnection(URL_ContentDiary, username, password);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return connection;
+//	}
 
 	public static void closeStatement(Statement statement) {
 		if (statement != null) {
@@ -72,9 +74,9 @@ public class DBConnectionHelper {
 	}
 
 	
-	public String getTable_ContentDiary() {
-		return table_ContentDiary;
-	}
+//	public String getTable_ContentDiary() {
+//		return table_ContentDiary;
+//	}
 
 	public String getTable() {
 		return table;

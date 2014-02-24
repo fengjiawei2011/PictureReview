@@ -1,27 +1,12 @@
 package helper;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import jcifs.smb.SmbException;
-import jcifs.smb.SmbFile;
-import jcifs.smb.SmbFileInputStream;
+import beans.MovieBean;
 
 import com.google.gson.Gson;
 
@@ -38,6 +23,10 @@ public class ProjectHelper {
 			e.printStackTrace();
 			System.out.println("Gson error");
 		}
+	}
+	
+	public static void toJSON(ArrayList<MovieBean> movies){
+		
 	}
 
 /*

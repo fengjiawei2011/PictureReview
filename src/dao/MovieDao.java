@@ -20,7 +20,7 @@ public class MovieDao {
 		/* Connection con = dbHelper.connectDatabase(); */
 		Statement s = null;
 		ResultSet rs = null;
-		String sql = "select DISTINCT(`movie_id`), movie_name from `Rideo`.`"
+		String sql = "select DISTINCT(`movie_id`), movie_name from "
 				+ dbHelper.getTable() + "`";
 		try {
 			s = con.createStatement();
@@ -49,8 +49,7 @@ public class MovieDao {
 		Statement s = null;
 		ResultSet rs = null;
 		int groups = 0;
-		String sql = "select DISTINCT(`group`) from `Rideo`.`"
-				+ dbHelper.getTable() + "`  order by `group` desc;";
+		String sql = "select DISTINCT(`group`) from "  +dbHelper.getTable() + "  order by `group` desc";
 		try {
 			s = con.createStatement();
 			rs = s.executeQuery(sql);

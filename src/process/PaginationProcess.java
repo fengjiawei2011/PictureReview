@@ -1,8 +1,13 @@
 package process;
 
+import helper.DBConnectionHelper;
+
+import java.sql.Connection;
 import java.util.List;
 
+import beans.MovieBean;
 import beans.PictureBean;
+import dao.MovieDao;
 import dao.PicDao;
 
 public class PaginationProcess {
@@ -39,4 +44,12 @@ public class PaginationProcess {
 	public int getRecords(String movie_id, String group) {
 		return p_dao.getRecords(movie_id, group);
 	}
+//	MovieDao md = new MovieDao();
+//	DBConnectionHelper helper = new DBConnectionHelper();
+//	public List<MovieBean> getMovies(){
+//		Connection con = helper.connectDatabase();
+//		List<MovieBean> movies = md.getMovies(con);
+//		DBConnectionHelper.closeConnection(con);
+//		return movies;
+//	}
 }
