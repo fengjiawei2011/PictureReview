@@ -62,10 +62,11 @@ public class GetImagesServlet extends HttpServlet {
 		PaginationProcess pp = new PaginationProcess();
 		CatalogProcess cp = new CatalogProcess();
 		if(operation != null && operation.equals("next")) {
-			
+			dealWithSessionExpired(hs,response);
 			if (hs.getAttribute("memory") != null) {
 				((Map<String, Object>)hs.getAttribute("memory")).clear();
 			}
+			
 			int currentPage =((Integer)hs.getAttribute("current_page")).intValue();
 			int pages_num = ((Integer)hs.getAttribute("pages_num")).intValue();
 			if(currentPage < pages_num ){
@@ -75,7 +76,7 @@ public class GetImagesServlet extends HttpServlet {
 			pictures = this.getPicture(hs);
 			
 		}else if (operation != null && operation.equals("prev")) {
-
+			dealWithSessionExpired(hs,response);
 			if (request.getSession().getAttribute("memory") != null) {
 				((Map<String, Object>)hs.getAttribute("memory")).clear();
 			}
@@ -88,7 +89,7 @@ public class GetImagesServlet extends HttpServlet {
 			pictures = this.getPicture(hs);
 			
 		}else if (operation != null && operation.equals("saveNext")) {
-			
+			dealWithSessionExpired(hs,response);
 			Map<String, Object> memory =(Map<String, Object>) hs.getAttribute("memory");
 			int currentPage =((Integer)hs.getAttribute("current_page")).intValue();
 			int pages_num = ((Integer)hs.getAttribute("pages_num")).intValue();
@@ -115,18 +116,19 @@ public class GetImagesServlet extends HttpServlet {
 			pictures = pp.getPicturesByPage(1, NUMBER_OF_PER_PAGE);
 			
 		}else if (operation != null && operation.equals("chooseMovie")) {
-			
+			dealWithSessionExpired(hs,response);
 			hs.setAttribute("current_page",1);
 			String movie_id = request.getParameter("movie_id");
 			hs.setAttribute("pages_num", getPages(movie_id));
 			MovieBean cm = getCurrentMovie(movie_id, (List<MovieBean>)hs.getAttribute("movies"));
 			hs.setAttribute("groups", cm.getGroups()+"");
-			hs.setAttribute("current_group","1");
+			hs.setAttribute("current_group","Choose Group");
 			hs.setAttribute("current_movie", cm );
 			
-			pictures = pp.getPicturesByPage(1, NUMBER_OF_PER_PAGE,"1", movie_id);
+			pictures = pp.getPicturesByPage(1, NUMBER_OF_PER_PAGE, movie_id);
 			//get movie related gossip 
 		}else if(operation != null && operation.equals("chooseGroup")){
+			dealWithSessionExpired(hs,response);
 			String group = request.getParameter("group");
 			hs.setAttribute("current_group", group);
 			String movie_id = ((MovieBean)hs.getAttribute("current_movie")).getMovie_id();
@@ -151,6 +153,12 @@ public class GetImagesServlet extends HttpServlet {
 		}
 		
 		return currentM;
+	}
+	
+	public void dealWithSessionExpired(HttpSession hs, HttpServletResponse r) throws IOException{
+		if(hs.getAttribute("current_page") == null){
+			r.sendRedirect("index.jsp");
+		}
 	}
 	
 	
@@ -211,9 +219,9 @@ public class GetImagesServlet extends HttpServlet {
 		String group = (String)hs.getAttribute("current_group");
 		List<PictureBean> pictures = new ArrayList<PictureBean>();
 		
-		if(mb != null &&  group != null){
+		if(mb != null &&  group != null && !group.equals("Choose Group")){
 			pictures = pp.getPicturesByPage((Integer)hs.getAttribute("current_page"), NUMBER_OF_PER_PAGE,group,mb.getMovie_id());
-		}else if(mb!=null && group == null){
+		}else if(mb!=null && (group == null || group.equals("Choose Group"))){
 			pictures = pp.getPicturesByPage((Integer)hs.getAttribute("current_page"), NUMBER_OF_PER_PAGE,mb.getMovie_id());
 		}else{
 			pictures = pp.getPicturesByPage((Integer)hs.getAttribute("current_page"), NUMBER_OF_PER_PAGE);

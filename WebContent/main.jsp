@@ -209,7 +209,7 @@
 			<li><div class="btn-group">
 					<button type="button" class="btn btn-info dropdown-toggle"
 						data-toggle="dropdown">
-						Group <%=group %>
+						<%=group %>
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">

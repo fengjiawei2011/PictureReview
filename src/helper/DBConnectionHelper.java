@@ -14,7 +14,7 @@ public class DBConnectionHelper {
 	private String URL = "jdbc:mysql://192.168.1.55:3306/Rideo";
 //	private String password = "root";
 //	private String URL = "jdbc:mysql://localhost/Rideo";
-	private String table = "Published_ImRep_Wanying";
+	private String table = "Published_ImRep";
 	
 //	private String URL_ContentDiary = "jdbc:mysql://192.168.1.55:3306/ContentDiary";
 //	private String table_ContentDiary = "movie";
